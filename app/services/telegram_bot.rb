@@ -1,8 +1,8 @@
 class TelegramBot
   def initialize
-    @token = ENV['TELEGRAM_BOT_TOKEN']
+    @token = ENV["TELEGRAM_BOT_TOKEN"]
     begin
-      require 'telegram/bot'
+      require "telegram/bot"
       @client = ::Telegram::Bot::Client.new(@token) if @token
     rescue LoadError => e
       Rails.logger.warn("Telegram gem not properly loaded: #{e.message}")
@@ -28,8 +28,8 @@ class TelegramBot
   def extract_message(update)
     if update.respond_to?(:message)
       update.message
-    elsif update.is_a?(Hash) && update['message']
-      update['message']
+    elsif update.is_a?(Hash) && update["message"]
+      update["message"]
     elsif update.is_a?(Hash) && update[:message]
       update[:message]
     end
@@ -38,8 +38,8 @@ class TelegramBot
   def extract_chat_id(message)
     if message.respond_to?(:chat)
       message.chat.id
-    elsif message.is_a?(Hash) && message['chat']
-      message['chat']['id'] || message['chat'][:id]
+    elsif message.is_a?(Hash) && message["chat"]
+      message["chat"]["id"] || message["chat"][:id]
     elsif message.is_a?(Hash) && message[:chat]
       message[:chat][:id]
     end
@@ -48,24 +48,24 @@ class TelegramBot
   def extract_text(message)
     if message.respond_to?(:text)
       message.text
-    elsif message.is_a?(Hash) && message['text']
-      message['text']
+    elsif message.is_a?(Hash) && message["text"]
+      message["text"]
     elsif message.is_a?(Hash) && message[:text]
       message[:text]
     end
   end
 
   def handle_command(chat_id, text)
-    if text == '/start'
+    if text == "/start"
       send_start_message(chat_id)
-    elsif text == '/random'
+    elsif text == "/random"
       send_random_quote(chat_id)
-    elsif text == '/categories'
+    elsif text == "/categories"
       send_categories_list(chat_id)
-    elsif text == '/help'
+    elsif text == "/help"
       send_help_message(chat_id)
     elsif text.match?(%r{^/quote_})
-      category = text.sub('/quote_', '')
+      category = text.sub("/quote_", "")
       send_quote_by_category(chat_id, category)
     else
       send_message(chat_id, "❓ Unknown command. Type /help to see available commands.")
@@ -87,7 +87,7 @@ class TelegramBot
     categories = Quote.all_categories.join(", ")
     message = <<~MSG
       📚 Available Commands:
-      
+
       /random - Get a random quote
       /categories - Show all quote categories
       /quote_Motivation - Get a quote from the Motivation category
@@ -97,7 +97,7 @@ class TelegramBot
       /quote_Friendship - Get a quote from the Friendship category
       /quote_Love - Get a quote from the Love category
       /help - Show this help message
-      
+
       Available categories: #{categories}
     MSG
     send_message(chat_id, message)
@@ -141,9 +141,9 @@ class TelegramBot
   def format_quote(quote)
     <<~QUOTE
       "#{quote.text}"
-      
+
       — #{quote.author}
-      
+
       📂 Category: #{quote.category}
     QUOTE
   end
@@ -152,7 +152,7 @@ class TelegramBot
     @client.api.send_message(
       chat_id: chat_id,
       text: text,
-      parse_mode: 'HTML'
+      parse_mode: "HTML"
     )
   rescue StandardError => e
     Rails.logger.error("Failed to send message: #{e.message}")

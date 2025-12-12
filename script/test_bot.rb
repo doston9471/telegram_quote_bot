@@ -7,7 +7,7 @@ class MockTelegramClient
   def api
     self
   end
-  
+
   def send_message(args)
     puts "\n📱 Bot Response:\n"
     puts args[:text]

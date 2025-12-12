@@ -1,10 +1,10 @@
 namespace :telegram do
   desc "Set webhook for Telegram bot"
   task set_webhook: :environment do
-    require 'telegram/bot'
-    
-    token = ENV['TELEGRAM_BOT_TOKEN']
-    webhook_url = ENV['TELEGRAM_BOT_WEBHOOK_URL']
+    require "telegram/bot"
+
+    token = ENV["TELEGRAM_BOT_TOKEN"]
+    webhook_url = ENV["TELEGRAM_BOT_WEBHOOK_URL"]
 
     unless token && webhook_url
       puts "❌ Error: TELEGRAM_BOT_TOKEN and TELEGRAM_BOT_WEBHOOK_URL must be set in .env"
@@ -37,8 +37,8 @@ namespace :telegram do
 
   desc "Get Telegram webhook info"
   task webhook_info: :environment do
-    token = ENV['TELEGRAM_BOT_TOKEN']
-    webhook_url = ENV['TELEGRAM_BOT_WEBHOOK_URL']
+    token = ENV["TELEGRAM_BOT_TOKEN"]
+    webhook_url = ENV["TELEGRAM_BOT_WEBHOOK_URL"]
 
     unless token
       puts "❌ Error: TELEGRAM_BOT_TOKEN must be set in .env"
@@ -48,7 +48,7 @@ namespace :telegram do
     puts "📊 Webhook Configuration:"
     puts "   Token: #{token[0..10]}..." if token.length > 10
     puts "   Webhook URL: #{webhook_url || '(not configured)'}"
-    
+
     puts "\n✅ To register the webhook, run:"
     puts "   rails telegram:set_webhook"
     puts "\n✅ You can also verify via curl:"
@@ -57,9 +57,9 @@ namespace :telegram do
 
   desc "Delete Telegram webhook"
   task delete_webhook: :environment do
-    require 'telegram/bot'
-    
-    token = ENV['TELEGRAM_BOT_TOKEN']
+    require "telegram/bot"
+
+    token = ENV["TELEGRAM_BOT_TOKEN"]
 
     unless token
       puts "❌ Error: TELEGRAM_BOT_TOKEN must be set in .env"

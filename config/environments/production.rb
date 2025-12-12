@@ -88,5 +88,6 @@ Rails.application.configure do
   # Skip DNS rebinding protection for the default health check endpoint.
   # config.host_authorization = { exclude: ->(request) { request.path == "/up" } }
   #
+  # Allow ngrok host for webhook testing
   config.hosts << "8a0fcad2e086.ngrok-free.app"
 end
