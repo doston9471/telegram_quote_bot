@@ -1,0 +1,24 @@
+<% content_for :title, "Quote" %>
+
+<div class="max-w-3xl mx-auto">
+  <div class="mb-6">
+    <%= link_to '← Back to All Quotes', quotes_path, class: 'inline-flex items-center gap-2 text-purple-300 hover:text-purple-100 transition font-semibold' %>
+  </div>
+
+  <!-- Metadata Section -->
+  <div class="mb-6 grid grid-cols-2 gap-4 p-4 bg-purple-700/20 rounded-xl border border-purple-600/30">
+    <div>
+      <p class="text-gray-400 text-sm font-semibold">QUOTE ID</p>
+      <p class="text-lg font-mono text-purple-300"><%= @quote.id %></p>
+    </div>
+    <div>
+      <p class="text-gray-400 text-sm font-semibold">CREATED</p>
+      <p class="text-lg text-purple-300"><%= @quote.created_at.strftime('%b %d, %Y') %></p>
+    </div>
+  </div>
+
+  <!-- Quote Card (rendered via partial) -->
+  <div class="mb-6">
+    <%= render @quote %>
+  </div>
+</div>

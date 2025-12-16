@@ -1,0 +1,48 @@
+<% content_for :title, "Quotes" %>
+
+<div class="w-full space-y-8">
+  <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
+    <div>
+      <h2 class="text-5xl font-bold bg-gradient-to-r from-purple-300 to-pink-300 bg-clip-text text-transparent">All Quotes</h2>
+      <p class="text-gray-400 text-lg mt-2">Manage your inspirational collection</p>
+    </div>
+    <div class="bg-gradient-to-br from-purple-700 to-purple-900 rounded-xl px-6 py-4 border border-purple-600 shadow-lg">
+      <p class="text-3xl font-bold text-transparent bg-gradient-to-r from-emerald-400 to-blue-400 bg-clip-text"><%= Quote.count %></p>
+      <p class="text-gray-300 text-sm font-semibold">Total Quotes</p>
+    </div>
+  </div>
+
+  <% if @quotes.any? %>
+    <div id="quotes" class="grid gap-6 grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
+      <%= render @quotes %>
+    </div>
+
+    <!-- Pagination -->
+    <div class="flex justify-center mt-12">
+      <nav class="bg-purple-700/30 rounded-xl px-8 py-6 border border-purple-600/50 flex gap-2 items-center flex-wrap justify-center">
+        <% if @pagy.prev %>
+          <%= link_to '← Prev', pagy_url_for(@pagy, @pagy.prev), class: 'px-4 py-2 bg-purple-600 hover:bg-purple-700 rounded-lg transition font-semibold' %>
+        <% else %>
+          <span class="px-4 py-2 text-gray-500 cursor-not-allowed">← Prev</span>
+        <% end %>
+
+        <div class="text-purple-200 font-semibold">
+          Page <span class="text-emerald-400"><%= @pagy.page %></span> of <span class="text-emerald-400"><%= @pagy.pages %></span>
+        </div>
+
+        <% if @pagy.next %>
+          <%= link_to 'Next →', pagy_url_for(@pagy, @pagy.next), class: 'px-4 py-2 bg-purple-600 hover:bg-purple-700 rounded-lg transition font-semibold' %>
+        <% else %>
+          <span class="px-4 py-2 text-gray-500 cursor-not-allowed">Next →</span>
+        <% end %>
+      </nav>
+    </div>
+  <% else %>
+    <div class="text-center py-20">
+      <div class="text-7xl mb-4">📚</div>
+      <p class="text-2xl text-gray-400 mb-6 font-medium">No quotes yet!</p>
+      <p class="text-gray-500 mb-8">Start building your inspirational collection</p>
+      <%= link_to '➕ Create your first quote', new_quote_path, class: 'inline-block bg-gradient-to-r from-emerald-600 to-emerald-500 hover:from-emerald-700 hover:to-emerald-600 px-8 py-4 rounded-xl font-semibold text-lg transition duration-200 transform hover:scale-105' %>
+    </div>
+  <% end %>
+</div>

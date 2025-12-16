@@ -40,6 +40,9 @@ gem "telegram-bot-ruby"
 # Environment variables
 gem "dotenv-rails"
 
+# Pagination
+gem "pagy", "~> 8.0"
+
 group :development, :test do
   # See https://guides.rubyonrails.org/debugging_rails_applications.html#debugging-with-the-debug-gem
   gem "debug", platforms: %i[ mri windows ], require: "debug/prelude"
@@ -58,3 +61,5 @@ group :development do
   # Use console on exceptions pages [https://github.com/rails/web-console]
   gem "web-console"
 end
+
+gem "tailwindcss-rails", "~> 4.4"

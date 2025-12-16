@@ -224,6 +224,7 @@ GEM
     nokogiri (1.18.10-x86_64-linux-musl)
       racc (~> 1.4)
     ostruct (0.6.3)
+    pagy (8.6.3)
     parallel (1.27.0)
     parser (3.3.10.0)
       ast (~> 2.4.1)
@@ -354,6 +355,15 @@ GEM
       net-ssh (>= 2.8.0)
       ostruct
     stringio (3.1.9)
+    tailwindcss-rails (4.4.0)
+      railties (>= 7.0.0)
+      tailwindcss-ruby (~> 4.0)
+    tailwindcss-ruby (4.1.16)
+    tailwindcss-ruby (4.1.16-aarch64-linux-gnu)
+    tailwindcss-ruby (4.1.16-aarch64-linux-musl)
+    tailwindcss-ruby (4.1.16-x86_64-darwin)
+    tailwindcss-ruby (4.1.16-x86_64-linux-gnu)
+    tailwindcss-ruby (4.1.16-x86_64-linux-musl)
     telegram-bot-ruby (2.4.0)
       dry-struct (~> 1.6)
       faraday (~> 2.0)
@@ -404,6 +414,7 @@ DEPENDENCIES
   image_processing (~> 1.2)
   jbuilder
   kamal
+  pagy (~> 8.0)
   propshaft
   puma (>= 5.0)
   rails (~> 8.1.1)
@@ -412,6 +423,7 @@ DEPENDENCIES
   solid_cache
   solid_queue
   sqlite3 (>= 2.1)
+  tailwindcss-rails (~> 4.4)
   telegram-bot-ruby
   thruster
   tzinfo-data
