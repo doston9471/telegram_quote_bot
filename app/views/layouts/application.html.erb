@@ -20,6 +20,9 @@
 
     <%# Includes all stylesheet files in app/assets/stylesheets %>
     <%= stylesheet_link_tag :app %>
+    
+    <%# Include Trix editor CSS %>
+    <link rel="stylesheet" href="https://unpkg.com/trix@2.0.8/dist/trix.css">
   </head>
 
   <body class="bg-gradient-to-br from-slate-900 via-purple-900 to-slate-900 text-white min-h-screen">
@@ -45,5 +48,17 @@
       <% end %>
       <%= yield %>
     </main>
+    
+    <%# Include Trix editor JS from CDN %>
+    <script src="https://unpkg.com/trix@2.0.8/dist/trix.umd.js"></script>
+    
+    <%# Load Rails JavaScript application with Propshaft -->
+    <script type="module">
+      import * as ActiveStorage from "https://cdn.jsdelivr.net/npm/@rails/activestorage@7/dist/activestorage.esm.js"
+      import * as ActionText from "https://cdn.jsdelivr.net/npm/@rails/actiontext@7/dist/actiontext.esm.js"
+      import Trix from "https://unpkg.com/trix@2.0.8/dist/trix.esm.min.js"
+      
+      ActiveStorage.start()
+    </script>
   </body>
 </html>

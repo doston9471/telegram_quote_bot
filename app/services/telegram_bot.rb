@@ -106,8 +106,7 @@ class TelegramBot
   def send_random_quote(chat_id)
     quote = Quote.random_quote
     if quote
-      message = format_quote(quote)
-      send_message(chat_id, message)
+      send_quote_with_image(chat_id, quote)
     else
       send_message(chat_id, "No quotes available at the moment.")
     end
@@ -131,21 +130,48 @@ class TelegramBot
     quotes = Quote.by_category(category)
     if quotes.any?
       quote = quotes.order("RANDOM()").first
-      message = format_quote(quote)
-      send_message(chat_id, message)
+      send_quote_with_image(chat_id, quote)
     else
       send_message(chat_id, "❌ No quotes found in the '#{category}' category.")
     end
   end
 
   def format_quote(quote)
+    quote_text = quote.text.body.to_plain_text if quote.text.present?
     <<~QUOTE
-      "#{quote.text}"
+      "#{quote_text}"
 
       — #{quote.author}
 
       📂 Category: #{quote.category}
     QUOTE
+  end
+
+  def send_quote_with_image(chat_id, quote)
+    caption = format_quote(quote)
+
+    if quote.image.present?
+      send_photo(chat_id, quote.image, caption)
+    else
+      send_message(chat_id, caption)
+    end
+  end
+
+  def send_photo(chat_id, image, caption)
+    # Get the file content from Active Storage
+    file_content = image.download
+    file_name = image.filename.to_s
+
+    @client.api.send_photo(
+      chat_id: chat_id,
+      photo: Faraday::UploadIO.new(StringIO.new(file_content), image.content_type, file_name),
+      caption: caption,
+      parse_mode: "HTML"
+    )
+  rescue StandardError => e
+    Rails.logger.error("Failed to send photo: #{e.message}")
+    # Fallback to text-only message if photo fails
+    send_message(chat_id, caption)
   end
 
   def send_message(chat_id, text)

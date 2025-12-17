@@ -63,3 +63,5 @@ group :development do
 end
 
 gem "tailwindcss-rails", "~> 4.4"
+
+gem "actiontext", "~> 8.1"

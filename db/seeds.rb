@@ -41,9 +41,15 @@ quotes = [
 ]
 
 quotes.each do |quote_attrs|
-  Quote.find_or_create_by!(text: quote_attrs[:text]) do |quote|
-    quote.author = quote_attrs[:author]
-    quote.category = quote_attrs[:category]
+  quote_text = quote_attrs.delete(:text)
+
+  quote = Quote.find_or_create_by!(author: quote_attrs[:author], category: quote_attrs[:category]) do |q|
+    q.text = quote_text
+  end
+
+  # If quote exists but text is empty, update it
+  if quote.text.blank?
+    quote.update(text: quote_text)
   end
 end
 

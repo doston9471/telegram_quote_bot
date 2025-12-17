@@ -406,6 +406,7 @@ PLATFORMS
   x86_64-linux-musl
 
 DEPENDENCIES
+  actiontext (~> 8.1)
   bootsnap
   brakeman
   bundler-audit

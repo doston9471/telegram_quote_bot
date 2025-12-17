@@ -4,7 +4,7 @@ class QuotesController < ApplicationController
 
   # GET /quotes or /quotes.json
   def index
-    @pagy, @quotes = pagy(Quote.all, items: 9)
+    @pagy, @quotes = pagy(Quote.with_rich_text_text, items: 9)
   end
 
   # GET /quotes/1 or /quotes/1.json
@@ -39,6 +39,9 @@ class QuotesController < ApplicationController
   def update
     respond_to do |format|
       if @quote.update(quote_params)
+        # Remove image if checkbox was checked
+        @quote.image.purge if params[:quote][:remove_image] == "1"
+
         format.html { redirect_to @quote, notice: "Quote was successfully updated.", status: :see_other }
         format.json { render :show, status: :ok, location: @quote }
       else
@@ -66,6 +69,6 @@ class QuotesController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def quote_params
-      params.expect(quote: [ :text, :author, :category ])
+      params.expect(quote: [ :author, :category, :text, :image ])
     end
 end

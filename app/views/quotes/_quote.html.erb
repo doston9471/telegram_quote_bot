@@ -1,23 +1,14 @@
 <div id="<%= dom_id quote %>" class="flex flex-col h-full bg-gradient-to-br from-purple-800/60 to-purple-900/60 rounded-2xl overflow-hidden shadow-xl hover:shadow-2xl transition-all duration-300 border border-purple-700/40 hover:border-purple-500/60 hover:scale-105 hover:-translate-y-2 backdrop-blur-sm group">
+  <!-- Image Section (if present) -->
+  <% if quote.image.present? %>
+    <div class="h-40 overflow-hidden bg-gray-900">
+      <%= image_tag quote.image, alt: "Quote image", class: "w-full h-full object-cover" %>
+    </div>
+  <% end %>
+
   <!-- Card Content -->
   <div class="flex-1 p-6 flex flex-col">
-    <!-- Category Badge -->
-    <div class="mb-4">
-      <span class="inline-block bg-gradient-to-r from-purple-600 to-pink-600 text-white text-xs font-bold px-3 py-1.5 rounded-full">
-        📂 <%= quote.category %>
-      </span>
-    </div>
-
-    <!-- Quote Text -->
-    <div class="flex-1 mb-4">
-      <div class="text-base leading-relaxed font-semibold italic text-purple-100 line-clamp-4 mb-3">
-        "<%= quote.text %>"
-      </div>
-      <p class="text-sm text-gray-400 flex items-center gap-2">
-        <span>✍️</span>
-        <span class="font-medium"><%= quote.author %></span>
-      </p>
-    </div>
+    <%= render 'quote_content', quote: quote %>
   </div>
 
   <!-- Divider -->
