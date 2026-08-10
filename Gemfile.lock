@@ -361,7 +361,7 @@ GEM
     tailwindcss-ruby (4.3.1-x86_64-darwin)
     tailwindcss-ruby (4.3.1-x86_64-linux-gnu)
     tailwindcss-ruby (4.3.1-x86_64-linux-musl)
-    telegram-bot-ruby (2.8.0)
+    telegram-bot-ruby (2.8.1)
       dry-struct (~> 1.6)
       faraday (~> 2.0)
       faraday-multipart (~> 1.0)
